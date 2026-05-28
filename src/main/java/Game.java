@@ -6,10 +6,20 @@ public class Game {
 
     public GuessResult guess(String guessNumber) {
         assertIllegalArgument(guessNumber);
-        if (guessNumber.equals(question)) {
+        int strike = getStrike(guessNumber);
+        if (strike == 3) {
             return new GuessResult(true, 3, 0);
         }
 
+        if(getStrike(guessNumber) != 0 ){
+            return new GuessResult(false, getStrike(guessNumber), 0);
+        }
+
+
+        return new GuessResult(false, 0, 0);
+    }
+
+    private int getStrike(String guessNumber) {
         int strike = 0;
 
         for (int i = 0; i < 3; i++) {
@@ -17,13 +27,7 @@ public class Game {
                 strike++;
             }
         }
-
-        if(strike != 0 ){
-            return new GuessResult(false, strike, 0);
-        }
-
-
-        return new GuessResult(false, 0, 0);
+        return strike;
     }
 
     private void assertIllegalArgument(String guessNumber) {
