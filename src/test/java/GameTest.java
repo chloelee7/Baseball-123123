@@ -1,4 +1,5 @@
 import GuessResult.GuessResult;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,15 +37,23 @@ class GameTest {
         assertIllegalArgument("121");
     }
 
+    private void assertMatchedNumber(GuessResult result, boolean solved, int strikes, int balls) {
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.isSolved()).isEqualTo(solved);
+        Assertions.assertThat(result.getStrikes()).isEqualTo(strikes);
+        Assertions.assertThat(result.getBalls()).isEqualTo(balls);
+    }
+
     @Test
     void returnSolvedResultIfMatchedNumber() {
         game.question = "123";
         GuessResult result = game.guess("123");
 
-        assertThat(result).isNotNull();
-        assertThat(result.isSolved()).isEqualTo(true);
-        assertThat(result.getStrikes()).isEqualTo(3);
-        assertThat(result.getBalls()).isEqualTo(0);
+        boolean solved = true;
+        int strikes = 3;
+        int balls = 0;
+
+        assertMatchedNumber(result, solved, strikes, balls);
     }
 
     @Test
@@ -52,9 +61,10 @@ class GameTest {
         game.question = "123";
         GuessResult result = game.guess("456");
 
-        assertThat(result).isNotNull();
-        assertThat(result.isSolved()).isEqualTo(false);
-        assertThat(result.getStrikes()).isEqualTo(0);
-        assertThat(result.getBalls()).isEqualTo(0);
+        boolean solved = false;
+        int strikes = 0;
+        int balls = 0;
+
+        assertMatchedNumber(result, solved, strikes, balls);
     }
 }
