@@ -44,19 +44,25 @@ class GameTest {
         Assertions.assertThat(result.getBalls()).isEqualTo(balls);
     }
 
-    private void generateQuestion() {
-        game.question = "123";
+    private void generateQuestion(String question) {
+        game.question = question;
     }
 
     @Test
     void returnSolvedResultIfMatchedNumber() {
-        generateQuestion();
+        generateQuestion("123");
         assertMatchedNumber(game.guess("123"), true, 3, 0);
     }
 
     @Test
     void returnSolvedResultIfUnmatchedNumber() {
-        generateQuestion();
+        generateQuestion("123");
         assertMatchedNumber(game.guess("456"), false, 0, 0);
+    }
+
+    @Test
+    void returnSolvedResultIf2Strikes0Ball() {
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("126"), false, 2, 0);
     }
 }
