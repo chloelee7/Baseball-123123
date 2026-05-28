@@ -7,10 +7,17 @@ public class Game {
     public GuessResult guess(String guessNumber) {
         assertIllegalArgument(guessNumber);
         int strikes = getStrike(guessNumber);
+
         if (strikes == 3) {
             return new GuessResult(true, 3, 0);
         }
 
+        int balls = getBalls(guessNumber);
+
+        return new GuessResult(false, strikes, balls);
+    }
+
+    private int getBalls(String guessNumber) {
         int balls = 0;
 
         for (int i = 0; i < 3; i++) {
@@ -21,13 +28,7 @@ public class Game {
                 }
             }
         }
-
-        if(strikes != 0 ){
-            return new GuessResult(false, getStrike(guessNumber), balls);
-        }
-
-
-        return new GuessResult(false, 0, 0);
+        return balls;
     }
 
     private int getStrike(String guessNumber) {
