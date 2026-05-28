@@ -6,13 +6,24 @@ public class Game {
 
     public GuessResult guess(String guessNumber) {
         assertIllegalArgument(guessNumber);
-        int strike = getStrike(guessNumber);
-        if (strike == 3) {
+        int strikes = getStrike(guessNumber);
+        if (strikes == 3) {
             return new GuessResult(true, 3, 0);
         }
 
-        if(getStrike(guessNumber) != 0 ){
-            return new GuessResult(false, getStrike(guessNumber), 0);
+        int balls = 0;
+
+        for (int i = 0; i < 3; i++) {
+            for ( int j = 0; j <3; j++){
+                if (i == j){ continue; }
+                if (question.charAt(i) == guessNumber.charAt(j)){
+                    balls++;
+                }
+            }
+        }
+
+        if(strikes != 0 ){
+            return new GuessResult(false, getStrike(guessNumber), balls);
         }
 
 
