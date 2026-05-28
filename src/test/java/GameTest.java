@@ -6,9 +6,15 @@ import static org.assertj.core.api.Assertions.*;
 
 class GameTest {
 
+    private Game game;
+
+    @BeforeEach
+    void setUp() {
+        game = new Game();
+    }
+
     @Test
     void createGame() {
-        Game game = new Game();
         assertNotNull(game);
     }
 
