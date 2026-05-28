@@ -71,4 +71,16 @@ class GameTest {
         generateQuestion("123");
         assertMatchedNumber(game.guess("321"), false, 1, 2);
     }
+
+    @Test
+    void returnSolvedResultIf0Strike3Balls() {
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("312"), false, 0, 3);
+    }
+
+    @Test
+    void returnSolvedResultIf1Strike1Ball() {
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("139"), false, 1, 1);
+    }
 }
